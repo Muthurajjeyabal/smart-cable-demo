@@ -367,20 +367,60 @@ function renderCustomerTable(list) {
   }
 }
 
-function searchCustomers() {
-  const q = document.getElementById('searchInput').value.toLowerCase().trim();
-  const status = document.getElementById('statusFilter').value;
+function fillCustFilterOptions() {
+  const msoSel = document.getElementById('custFilterMso');
+  if (msoSel) {
+    const msos = new Set();
+    (allCustomers || []).forEach(c => { if (c.mso) msos.add(String(c.mso).trim()); });
+    const cur = msoSel.value;
+    msoSel.innerHTML = '<option value="">All MSO</option>' +
+      Array.from(msos).sort().map(m => '<option value="' + m + '">' + m + '</option>').join('');
+    if (cur) msoSel.value = cur;
+  }
+}
 
-  let filtered = allCustomers;
+function onCustFilterAreaChange(keepStreet) {
+  const area = (document.getElementById('custFilterArea') || {}).value || '';
+  const streetSel = document.getElementById('custFilterStreet');
+  if (!streetSel) { if (!keepStreet) searchCustomers(); return; }
+  const prev = keepStreet ? streetSel.value : '';
+  const streets = new Set();
+  (allCustomers || []).forEach(c => {
+    const a = String(c.place || c.area || '').trim();
+    if (area && a !== area && a.toUpperCase() !== area.toUpperCase()) return;
+    if (c.street) streets.add(String(c.street).trim());
+  });
+  streetSel.innerHTML = '<option value="">All Streets</option>' +
+    Array.from(streets).sort((a,b)=>a.localeCompare(b,'ta')).map(s => '<option value="' + s + '">' + s + '</option>').join('');
+  if (prev && [...streets].includes(prev)) streetSel.value = prev;
+  if (!keepStreet) searchCustomers();
+}
+
+function searchCustomers() {
+  fillCustFilterOptions();
+  const q = ((document.getElementById('searchInput') || {}).value || '').toLowerCase().trim();
+  const status = (document.getElementById('statusFilter') || {}).value || '';
+  const area = (document.getElementById('custFilterArea') || {}).value || '';
+  const street = (document.getElementById('custFilterStreet') || {}).value || '';
+  const mso = (document.getElementById('custFilterMso') || {}).value || '';
+
+  let filtered = allCustomers || [];
   if (status) filtered = filtered.filter(c => (c.status || 'ACT') === status);
+  if (area) filtered = filtered.filter(c => {
+    const a = String(c.place || c.area || '').trim();
+    return a === area || a.toUpperCase() === area.toUpperCase();
+  });
+  if (street) filtered = filtered.filter(c => String(c.street || '').trim() === street);
+  if (mso) filtered = filtered.filter(c => String(c.mso || '').trim() === mso);
   if (q) {
     filtered = filtered.filter(c =>
       (c.name || '').toLowerCase().includes(q) ||
       (c.mobile || '').includes(q) ||
-      (c.boxNo || '').toLowerCase().includes(q) ||
+      (c.boxNo || c.box || '').toLowerCase().includes(q) ||
       (c.custId || '').toLowerCase().includes(q) ||
       (c.scNo || '').toLowerCase().includes(q) ||
-      (c.smartCard || '').toLowerCase().includes(q)
+      (c.smartCard || '').toLowerCase().includes(q) ||
+      (c.mso || '').toLowerCase().includes(q)
     );
   }
   renderCustomerTable(filtered);
@@ -6789,3 +6829,6 @@ function applyAppTextSize() {
   const sel = document.getElementById('settingTextSize');
   if (sel) sel.value = v;
 }
+
+window.onCustFilterAreaChange = onCustFilterAreaChange;
+window.searchCustomers = searchCustomers;

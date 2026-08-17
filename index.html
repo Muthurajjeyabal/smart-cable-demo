@@ -615,16 +615,39 @@
 
         <!-- CUSTOMERS LIST -->
         <div id="page-customers" class="page hidden fade-in">
-          <div class="bg-white rounded-xl shadow-sm border border-slate-100 p-4 mb-4">
-            <div class="flex flex-col sm:flex-row gap-3">
-              <input type="text" id="searchInput" placeholder="Search Name / Mobile / Box / ID..." 
-                class="flex-1 px-4 py-2.5 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-blue-500"
-                oninput="searchCustomers()">
-              <select id="statusFilter" onchange="searchCustomers()" class="px-4 py-2.5 border border-slate-300 rounded-xl outline-none">
-                <option value="">All Status</option>
-                <option value="ACT">Active</option>
-                <option value="DC">DC</option>
-              </select>
+          <div class="bg-white rounded-xl shadow-sm border border-slate-100 p-4 mb-4 space-y-3">
+            <input type="text" id="searchInput" placeholder="Search Name / Mobile / Box / ID..." 
+              class="w-full px-4 py-2.5 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-blue-500"
+              oninput="searchCustomers()">
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="text-[10px] text-slate-500 font-medium">Area</label>
+                <select id="custFilterArea" onchange="onCustFilterAreaChange()" class="w-full px-2 py-2 border rounded-lg bg-white text-sm">
+                  <option value="">All Areas</option>
+                  <option value="AREA 1">AREA 1</option>
+                  <option value="AREA 2">AREA 2</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-[10px] text-slate-500 font-medium">Street</label>
+                <select id="custFilterStreet" onchange="searchCustomers()" class="w-full px-2 py-2 border rounded-lg bg-white text-sm">
+                  <option value="">All Streets</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-[10px] text-slate-500 font-medium">MSO</label>
+                <select id="custFilterMso" onchange="searchCustomers()" class="w-full px-2 py-2 border rounded-lg bg-white text-sm">
+                  <option value="">All MSO</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-[10px] text-slate-500 font-medium">Status</label>
+                <select id="statusFilter" onchange="searchCustomers()" class="w-full px-2 py-2 border rounded-lg bg-white text-sm">
+                  <option value="">All Status</option>
+                  <option value="ACT">Active</option>
+                  <option value="DC">DC</option>
+                </select>
+              </div>
             </div>
           </div>
 
