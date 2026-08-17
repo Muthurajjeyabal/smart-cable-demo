@@ -767,6 +767,7 @@ async function loadDashboard(force) {
     }
     _colDashAt = Date.now();
     window._colDashDone = true;
+    try { applyCollectorLang(); } catch(e) {}
   } catch (e) {
     console.error(e);
   }
@@ -843,14 +844,14 @@ function applyCollectorTheme() {
 }
 const COL_I18N = {
   ta: {
-    home: 'முகப்பு', customers: 'கஸ்டமர்', collect: 'வசூல்', due: 'பாக்கி', more: 'மேலும்',
-    dashboard: 'டாஷ்போர்டு', ledger: 'லெட்ஜர்', colReport: 'கலெக்ஷன் ரிப்போர்ட்', logout: 'லாக் அவுட்',
-    loggedIn: 'லாகின்', language: 'மொழி / Language', theme: 'தீம் / Theme',
-    collector: 'கலெக்டர்', online: '● ஆன்லைன்', synced: 'சின்க்',
-    todayColl: 'இன்றைய வசூல்', custCollected: 'கஸ்டமர் வசூல்',
-    active: 'ஆக்டிவ்', paidUp: 'பேய்ட் அப்', pending: 'பெண்டிங்', dueAmt: 'பாக்கி',
-    todayRoute: 'இன்றைய ரூட்', viewAll: 'எல்லாம் →', pendingCust: 'பெண்டிங் கஸ்டமர்',
-    btnCollect: '₹ வசூல்', btnSearch: 'தேடல்', btnPending: 'பெண்டிங்', btnReport: 'ரிப்போர்ட்',
+    home: 'முகப்பு', customers: 'வாடிக்கையாளர்', collect: 'வசூல்', due: 'பாக்கி', more: 'மேலும்',
+    dashboard: 'முகப்பு', ledger: 'கணக்கு', colReport: 'வசூல் அறிக்கை', logout: 'வெளியேறு',
+    loggedIn: 'உள்நுழைவு', language: 'மொழி', theme: 'தோற்றம்',
+    collector: 'வசூல் ஏஜென்ட்', online: '● இணைப்பு உள்ளது', synced: 'புதுப்பிக்கப்பட்டது',
+    todayColl: 'இன்றைய வசூல்', custCollected: 'பேர் வசூல்',
+    active: 'மொத்த வாடிக்கையாளர்', paidUp: 'பணம் செலுத்தியவர்', pending: 'பாக்கி உள்ளவர்', dueAmt: 'மொத்த பாக்கி',
+    todayRoute: 'இன்றைய தெருக்கள்', viewAll: 'அனைத்தும் →', pendingCust: 'பாக்கி வாடிக்கையாளர்',
+    btnCollect: '₹ வசூல்', btnSearch: 'தேடல்', btnPending: 'பாக்கி', btnReport: 'அறிக்கை',
     recentColl: 'சமீபத்திய வசூல்', noCollToday: 'இன்று வசூல் இல்லை'
   },
   en: {
@@ -859,7 +860,7 @@ const COL_I18N = {
     loggedIn: 'Logged in as', language: 'Language', theme: 'Theme',
     collector: 'Collector', online: '● Online', synced: 'Synced',
     todayColl: "TODAY'S COLLECTION", custCollected: 'customers collected',
-    active: 'Active', paidUp: 'Paid up', pending: 'Pending', dueAmt: 'Due Amount',
+    active: 'Active', paidUp: 'PAID UP', pending: 'Pending', dueAmt: 'Due Amount',
     todayRoute: "Today's Route", viewAll: 'View All →', pendingCust: 'Pending Customers',
     btnCollect: '₹ Collect', btnSearch: 'Search', btnPending: 'Pending', btnReport: 'Report',
     recentColl: 'Recent Collections', noCollToday: 'No collections today'
