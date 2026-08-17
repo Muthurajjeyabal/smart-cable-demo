@@ -290,40 +290,81 @@ function invalidateCustomersCache() {
 
 function renderCustomerTable(list) {
   const tbody = document.getElementById('customerTableBody');
-  if (list.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="7" class="text-center py-8 text-slate-400">No customers found</td></tr>`;
+  const cards = document.getElementById('customerCards');
+  if (!list || list.length === 0) {
+    if (tbody) tbody.innerHTML = `<tr><td colspan="7" class="text-center py-8 text-slate-400">No customers found</td></tr>`;
+    if (cards) cards.innerHTML = `<div class="p-8 text-center text-slate-400 text-sm bg-white rounded-xl border">No customers found</div>`;
     return;
   }
 
-  tbody.innerHTML = list.map(c => {
-    const due = Number(c.dueAmt || c.due || 0);
-    const status = c.status || 'ACT';
-    const street = c.street || '';
-    return `
-    <tr class="border-t border-slate-100 hover:bg-blue-50 cursor-pointer" onclick="viewLedger('${c.id}')">
-      <td class="px-3 py-2.5 font-mono text-xs">${c.custId || c.id.slice(0,6)}</td>
-      <td class="px-3 py-2.5">
-        <div class="font-medium text-sm">${c.name || '-'}</div>
-        <div class="text-[10px] text-slate-500 truncate max-w-[140px]">${street}</div>
-      </td>
-      <td class="px-3 py-2.5 text-sm">${c.mobile || '-'}</td>
-      <td class="px-3 py-2.5 font-mono text-xs">${c.boxNo || '-'}</td>
-      <td class="px-3 py-2.5 text-sm font-semibold ${due > 0 ? 'text-red-600' : 'text-slate-500'}">₹${due}</td>
-      <td class="px-3 py-2.5">
-        <span class="px-2 py-0.5 rounded-full text-xs font-medium ${status === 'ACT' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
-          ${status}
-        </span>
-      </td>
-      <td class="px-3 py-2.5 whitespace-nowrap" onclick="event.stopPropagation()">
-        <button onclick="editCustomer('${c.id}')" class="text-blue-600 hover:underline text-xs mr-1">Edit</button>
-        <button onclick="toggleDC('${c.id}', '${status}')" class="text-xs mr-1 ${status === 'ACT' ? 'text-red-600' : 'text-green-600'} hover:underline">
-          ${status === 'ACT' ? 'DC' : 'RC'}
-        </button>
-        <button onclick="deleteCustomer('${c.id}')" class="text-red-700 hover:underline text-xs font-medium">Del</button>
-        <button onclick="openWhatsApp('${c.mobile || ''}', '${(c.name || '').replace(/'/g, '')}', ${Number(c.dueAmt||c.due||0)})" class="text-green-600 hover:underline text-xs">WA</button>
-      </td>
-    </tr>`;
-  }).join('');
+  // Mobile cards (Pending-style)
+  if (cards) {
+    cards.innerHTML = list.map(c => {
+      const due = Number(c.dueAmt || c.due || 0);
+      const status = c.status || 'ACT';
+      const mobile = String(c.mobile || '').trim();
+      const cid = c.custId || (c.id ? String(c.id).slice(0, 8) : '');
+      const nm = String(c.name || '—').replace(/</g, '&lt;');
+      const st = String(c.street || '—').replace(/</g, '&lt;');
+      const box = String(c.boxNo || c.box || '—');
+      const mso = String(c.mso || '—');
+      const id = c.id || '';
+      const tel = mobile.replace(/\D/g, '');
+      const statusCls = status === 'ACT' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700';
+      let html = '<div class="bg-white rounded-xl border border-slate-100 p-3 shadow-sm">';
+      html += '<div class="flex justify-between items-start gap-2">';
+      html += '<div class="min-w-0"><div class="font-semibold text-slate-900 truncate">' + nm + '</div>';
+      html += '<div class="text-[11px] text-slate-500 mt-0.5">ID: ' + cid + ' · ' + st + '</div></div>';
+      html += '<div class="text-right shrink-0"><div class="text-base font-bold ' + (due > 0 ? 'text-red-600' : 'text-slate-500') + '">₹' + due.toLocaleString('en-IN') + '</div>';
+      html += '<span class="inline-block mt-0.5 px-2 py-0.5 rounded-full text-[10px] font-medium ' + statusCls + '">' + status + '</span></div></div>';
+      html += '<div class="mt-1.5 text-xs text-slate-600">';
+      html += mobile ? ('📞 ' + mobile) : '<span class="text-slate-400">📞 No mobile</span>';
+      html += '</div>';
+      html += '<div class="font-mono text-[11px] text-slate-500 mt-0.5">📦 ' + box + ' · ' + mso + '</div>';
+      html += '<div class="flex gap-2 mt-2.5 pt-2 border-t border-slate-50 flex-wrap">';
+      html += '<button type="button" onclick="viewLedger(\'' + id + '\')" class="flex-1 min-w-[4.5rem] py-1.5 rounded-lg bg-indigo-50 text-indigo-700 text-xs font-medium">Ledger</button>';
+      html += '<button type="button" onclick="editCustomer(\'' + id + '\')" class="flex-1 min-w-[4.5rem] py-1.5 rounded-lg bg-blue-50 text-blue-700 text-xs font-medium">Edit</button>';
+      if (mobile) {
+        html += '<button type="button" onclick="openWhatsApp(\'' + mobile + '\',\'' + nm.replace(/'/g, '') + '\',' + due + ')" class="flex-1 min-w-[4.5rem] py-1.5 rounded-lg bg-green-50 text-green-700 text-xs font-medium">WhatsApp</button>';
+        html += '<a href="tel:' + tel + '" class="px-3 py-1.5 rounded-lg bg-slate-50 text-slate-700 text-xs font-medium">Call</a>';
+      }
+      html += '</div></div>';
+      return html;
+    }).join('');
+  }
+
+  // Desktop table
+  if (tbody) {
+    tbody.innerHTML = list.map(c => {
+      const due = Number(c.dueAmt || c.due || 0);
+      const status = c.status || 'ACT';
+      const street = c.street || '';
+      return `
+      <tr class="border-t border-slate-100 hover:bg-blue-50 cursor-pointer" onclick="viewLedger('${c.id}')">
+        <td class="px-3 py-2.5 font-mono text-xs">${c.custId || c.id.slice(0,6)}</td>
+        <td class="px-3 py-2.5">
+          <div class="font-medium text-sm">${c.name || '-'}</div>
+          <div class="text-[10px] text-slate-500 truncate max-w-[140px]">${street}</div>
+        </td>
+        <td class="px-3 py-2.5 text-sm">${c.mobile || '-'}</td>
+        <td class="px-3 py-2.5 font-mono text-xs">${c.boxNo || c.box || '-'}</td>
+        <td class="px-3 py-2.5 text-sm font-semibold ${due > 0 ? 'text-red-600' : 'text-slate-500'}">₹${due}</td>
+        <td class="px-3 py-2.5">
+          <span class="px-2 py-0.5 rounded-full text-xs font-medium ${status === 'ACT' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
+            ${status}
+          </span>
+        </td>
+        <td class="px-3 py-2.5 whitespace-nowrap" onclick="event.stopPropagation()">
+          <button onclick="editCustomer('${c.id}')" class="text-blue-600 hover:underline text-xs mr-1">Edit</button>
+          <button onclick="toggleDC('${c.id}', '${status}')" class="text-xs mr-1 ${status === 'ACT' ? 'text-red-600' : 'text-green-600'} hover:underline">
+            ${status === 'ACT' ? 'DC' : 'RC'}
+          </button>
+          <button onclick="deleteCustomer('${c.id}')" class="text-red-700 hover:underline text-xs font-medium">Del</button>
+          <button onclick="openWhatsApp('${c.mobile || ''}', '${(c.name || '').replace(/'/g, '')}', ${Number(c.dueAmt||c.due||0)})" class="text-green-600 hover:underline text-xs">WA</button>
+        </td>
+      </tr>`;
+    }).join('');
+  }
 }
 
 function searchCustomers() {
