@@ -3391,7 +3391,7 @@ async function loadMsoMaster() {
         <button type="button" class="text-blue-600 text-xs mr-2" onclick="editMsoMaster('${m.id}')">Edit</button>
         <button type="button" class="text-red-600 text-xs" onclick="deleteMsoMaster('${m.id}')">Del</button>
       </td>
-    </tr>`).join('') || '<tr><td colspan="2" class="text-center py-4 text-slate-400">Empty — Import default</td></tr>';
+    </tr>`).join('') || '<tr><td colspan="2" class="text-center py-4 text-slate-400">Empty — Add MSO (TACTV, GTPL, SCV, TCCL)</td></tr>';
   refreshCustomerMsoDropdown();
 }
 
