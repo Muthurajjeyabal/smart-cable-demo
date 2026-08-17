@@ -37,25 +37,25 @@
   <div id="loginScreen" class="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-emerald-900 via-green-900 to-teal-900">
     <div class="w-full max-w-sm bg-white rounded-2xl shadow-xl p-6">
       <div class="text-center mb-6">
-        <div class="inline-block bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full mb-3 tracking-wide">COLLECTOR APP</div>
+        <div class="inline-block bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full mb-3 tracking-wide">கலெக்டர் ஆப்</div>
         <div class="w-16 h-16 bg-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3 text-white text-2xl font-bold">₹</div>
-        <img src="logo.png" alt="JSV" class="w-24 h-auto mx-auto mb-3"><h1 class="text-lg font-bold">JSV Cable TV</h1><p class="text-xs text-slate-500 mb-2">Collector</p>
-        <p class="text-sm text-emerald-700 font-medium">Agent Login • Collection only</p>
-        <p class="text-xs text-slate-400 mt-1">S. Alangulam</p>
+        <img src="logo.png" alt="Logo" class="w-24 h-auto mx-auto mb-3"><h1 class="text-lg font-bold">Smart Cable Manager</h1><p class="text-xs text-slate-500 mb-2">கலெக்டர்</p>
+        <p class="text-sm text-emerald-700 font-medium">ஏஜென்ட் லாகின் · வசூல் மட்டும்</p>
+        <p class="text-xs text-slate-400 mt-1">DEMO</p>
       </div>
       <div id="loginError" class="hidden mb-3 p-2 bg-red-50 text-red-600 text-sm rounded-lg"></div>
       <form id="loginForm" class="space-y-3">
         <div>
-          <label class="block text-xs font-medium text-slate-600 mb-1">Collector Email</label>
-          <input type="email" id="loginEmail" required placeholder="uma@jsvcable.com" class="w-full px-4 py-3 border rounded-xl outline-none focus:ring-2 focus:ring-emerald-500">
+          <label class="block text-xs font-medium text-slate-600 mb-1">கலெக்டர் Email</label>
+          <input type="email" id="loginEmail" required placeholder="collector@jmrapps.com" class="w-full px-4 py-3 border rounded-xl outline-none focus:ring-2 focus:ring-emerald-500">
         </div>
         <div>
           <label class="block text-xs font-medium text-slate-600 mb-1">Password</label>
           <input type="password" id="loginPassword" required placeholder="••••••••" class="w-full px-4 py-3 border rounded-xl outline-none focus:ring-2 focus:ring-emerald-500">
         </div>
-        <button type="submit" id="loginBtn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl">Collector Login</button>
+        <button type="submit" id="loginBtn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl">கலெக்டர் லாகின்</button>
       </form>
-      <p class="text-center text-xs text-slate-400 mt-4">Admin panel → separate link</p>
+      <p class="text-center text-xs text-slate-400 mt-4">அட்மின் → தனி link</p>
     </div>
   </div>
 
@@ -63,7 +63,7 @@
     <header class="bg-blue-800 text-white px-4 py-3 sticky top-0 z-30 shadow">
       <div class="flex items-center justify-between gap-2">
         <button id="backBtn" onclick="goHome()" class="hidden text-white text-xl px-1">←</button>
-        <div class="font-semibold text-sm flex-1 text-center" id="headerTitle">JSV CABLE TV</div>
+        <div class="font-semibold text-sm flex-1 text-center" id="headerTitle">ஸ்மார்ட் கேபிள்</div>
         <span id="colOfflineBadge" class="hidden text-[10px] font-bold bg-amber-400 text-amber-900 px-1.5 py-0.5 rounded">OFF</span>
         <span id="colSyncBadge" class="hidden text-[10px] font-bold bg-blue-400 text-white px-1.5 py-0.5 rounded">Sync</span>
       </div>
@@ -74,39 +74,39 @@
       <div class="px-3 pt-3 pb-2">
         <div class="flex items-center justify-between mb-1">
           <div>
-            <div class="text-xs text-slate-500">Collector</div>
+            <div class="text-xs text-slate-500">கலெக்டர்</div>
             <div class="font-bold text-slate-900 text-sm" id="dashAgentName">—</div>
           </div>
           <div class="text-right">
-            <div class="text-[10px] font-medium text-emerald-600" id="dashOnline">● Online</div>
-            <div class="text-[10px] text-slate-400" id="dashSync">Synced</div>
+            <div class="text-[10px] font-medium text-emerald-600" id="dashOnline">● ஆன்லைன்</div>
+            <div class="text-[10px] text-slate-400" id="dashSync">சின்க்</div>
           </div>
         </div>
       </div>
 
       <!-- TODAY COLLECTION -->
       <div class="mx-3 mb-3 bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
-        <div class="text-[10px] font-semibold tracking-wider text-slate-400 uppercase">Today's Collection</div>
+        <div class="text-[10px] font-semibold tracking-wider text-slate-400 uppercase">இன்றைய வசூல்</div>
         <div class="text-3xl font-bold text-slate-900 mt-1" id="dToday">₹0</div>
-        <div class="text-xs text-slate-500 mt-0.5"><span id="dTodayCount">0</span> customers collected</div>
+        <div class="text-xs text-slate-500 mt-0.5"><span id="dTodayCount">0</span> கஸ்டமர் வசூல்</div>
       </div>
 
       <!-- SUMMARY 2x2 -->
       <div class="mx-3 mb-3 grid grid-cols-2 gap-2">
         <div class="bg-white rounded-xl border border-slate-200 p-3">
-          <div class="text-[10px] text-slate-400 uppercase">Active</div>
+          <div class="text-[10px] text-slate-400 uppercase">ஆக்டிவ்</div>
           <div class="text-xl font-bold text-slate-800" id="dActive">0</div>
         </div>
         <div class="bg-white rounded-xl border border-slate-200 p-3">
-          <div class="text-[10px] text-slate-400 uppercase">Today Paid</div>
+          <div class="text-[10px] text-slate-400 uppercase">இன்று பேட்</div>
           <div class="text-xl font-bold text-emerald-600" id="dPaidCust">0</div>
         </div>
         <div class="bg-white rounded-xl border border-slate-200 p-3">
-          <div class="text-[10px] text-slate-400 uppercase">Pending</div>
+          <div class="text-[10px] text-slate-400 uppercase">பெண்டிங்</div>
           <div class="text-xl font-bold text-amber-600" id="dUnpaidCust">0</div>
         </div>
         <div class="bg-white rounded-xl border border-slate-200 p-3">
-          <div class="text-[10px] text-slate-400 uppercase">Due Amount</div>
+          <div class="text-[10px] text-slate-400 uppercase">பாக்கி</div>
           <div class="text-lg font-bold text-red-600" id="dUnpaidAmt">₹0</div>
         </div>
       </div>
@@ -114,8 +114,8 @@
       <!-- ROUTE BY STREET -->
       <div class="mx-3 mb-3 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
         <div class="px-4 py-2.5 border-b border-slate-100 flex justify-between items-center">
-          <div class="text-xs font-semibold text-slate-700">Today's Route</div>
-          <button type="button" onclick="showPage('pending')" class="text-[10px] text-blue-600 font-medium">View All →</button>
+          <div class="text-xs font-semibold text-slate-700">இன்றைய ரூட்</div>
+          <button type="button" onclick="showPage('pending')" class="text-[10px] text-blue-600 font-medium">எல்லாம் →</button>
         </div>
         <div id="dashRouteList" class="divide-y divide-slate-100 max-h-48 overflow-y-auto">
           <div class="p-3 text-xs text-slate-400 text-center">Loading...</div>
@@ -125,8 +125,8 @@
       <!-- PENDING PREVIEW -->
       <div class="mx-3 mb-3 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
         <div class="px-4 py-2.5 border-b border-slate-100 flex justify-between items-center">
-          <div class="text-xs font-semibold text-slate-700">Pending Customers</div>
-          <button type="button" onclick="showPage('pending')" class="text-[10px] text-blue-600 font-medium">View All →</button>
+          <div class="text-xs font-semibold text-slate-700">பெண்டிங் கஸ்டமர்</div>
+          <button type="button" onclick="showPage('pending')" class="text-[10px] text-blue-600 font-medium">எல்லாம் →</button>
         </div>
         <div id="dashPendingPreview" class="divide-y divide-slate-100">
           <div class="p-3 text-xs text-slate-400 text-center">—</div>
@@ -135,17 +135,17 @@
 
       <!-- QUICK ACTIONS -->
       <div class="mx-3 mb-3 grid grid-cols-2 gap-2">
-        <button type="button" onclick="showPage('billing')" class="bg-blue-600 text-white rounded-xl py-3.5 text-sm font-semibold shadow-sm">₹ Collect</button>
-        <button type="button" onclick="showPage('customers')" class="bg-white border border-slate-200 rounded-xl py-3.5 text-sm font-semibold text-slate-700">Search</button>
-        <button type="button" onclick="showPage('pending')" class="bg-white border border-slate-200 rounded-xl py-3.5 text-sm font-semibold text-slate-700">Pending</button>
-        <button type="button" onclick="showPage('colReport')" class="bg-white border border-slate-200 rounded-xl py-3.5 text-sm font-semibold text-slate-700">Report</button>
+        <button type="button" onclick="showPage('billing')" class="bg-blue-600 text-white rounded-xl py-3.5 text-sm font-semibold shadow-sm">₹ வசூல்</button>
+        <button type="button" onclick="showPage('customers')" class="bg-white border border-slate-200 rounded-xl py-3.5 text-sm font-semibold text-slate-700">தேடல்</button>
+        <button type="button" onclick="showPage('pending')" class="bg-white border border-slate-200 rounded-xl py-3.5 text-sm font-semibold text-slate-700">பெண்டிங்</button>
+        <button type="button" onclick="showPage('colReport')" class="bg-white border border-slate-200 rounded-xl py-3.5 text-sm font-semibold text-slate-700">ரிப்போர்ட்</button>
       </div>
 
       <!-- RECENT -->
       <div class="mx-3 mb-4 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-        <div class="px-4 py-2.5 border-b border-slate-100 text-xs font-semibold text-slate-700">Recent Collections</div>
+        <div class="px-4 py-2.5 border-b border-slate-100 text-xs font-semibold text-slate-700">சமீபத்திய வசூல்</div>
         <div id="dashRecent" class="divide-y divide-slate-100">
-          <div class="p-3 text-xs text-slate-400 text-center">No collections today</div>
+          <div class="p-3 text-xs text-slate-400 text-center">இன்று வசூல் இல்லை</div>
         </div>
       </div>
     </div>
@@ -266,23 +266,23 @@
   <nav id="bottomNav" class="bottom-nav fixed bottom-0 inset-x-0 z-40 bg-white border-t border-slate-200 grid grid-cols-5 text-center shadow-[0_-4px_12px_rgba(0,0,0,.06)] hidden">
     <button type="button" onclick="goHome()" class="nav-item py-2 text-blue-600" data-nav="home">
       <div class="text-lg leading-none">⌂</div>
-      <div class="text-[9px] font-medium mt-0.5">Home</div>
+      <div class="text-[9px] font-medium mt-0.5">முகப்பு</div>
     </button>
     <button type="button" onclick="showPage('customers')" class="nav-item py-2 text-slate-400" data-nav="customers">
       <div class="text-lg leading-none">◎</div>
-      <div class="text-[9px] font-medium mt-0.5">Customers</div>
+      <div class="text-[9px] font-medium mt-0.5">கஸ்டமர்</div>
     </button>
     <button type="button" onclick="showPage('billing')" class="nav-item py-2 text-slate-400" data-nav="billing">
       <div class="text-lg leading-none">₹</div>
-      <div class="text-[9px] font-medium mt-0.5">Collect</div>
+      <div class="text-[9px] font-medium mt-0.5">வசூல்</div>
     </button>
     <button type="button" onclick="showPage('pending')" class="nav-item py-2 text-slate-400" data-nav="pending">
       <div class="text-lg leading-none">⚠</div>
-      <div class="text-[9px] font-medium mt-0.5">Due</div>
+      <div class="text-[9px] font-medium mt-0.5">பாக்கி</div>
     </button>
     <button type="button" onclick="showPage('settings')" class="nav-item py-2 text-slate-400" data-nav="settings">
       <div class="text-lg leading-none">≡</div>
-      <div class="text-[9px] font-medium mt-0.5">More</div>
+      <div class="text-[9px] font-medium mt-0.5">மேலும்</div>
     </button>
   </nav>
 

@@ -6549,10 +6549,11 @@ function getAppTheme() {
 }
 function getAppLang() {
   try {
-    var v = (localStorage.getItem('jsv_lang') || 'en').toLowerCase();
+    // DEMO default: Tamil
+    var v = (localStorage.getItem('jsv_lang') || 'ta').toLowerCase();
     if (v === 'ta' || v === 'tamil') return 'ta';
     return 'en';
-  } catch (e) { return 'en'; }
+  } catch (e) { return 'ta'; }
 }
 function setAppTheme(v) {
   localStorage.setItem('jsv_theme', v || 'light');
