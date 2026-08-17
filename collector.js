@@ -846,12 +846,12 @@ const COL_I18N = {
   ta: {
     home: 'முகப்பு', customers: 'வாடிக்கையாளர்', collect: 'வசூல்', due: 'பாக்கி', more: 'மேலும்',
     dashboard: 'முகப்பு', ledger: 'கணக்கு', colReport: 'வசூல் அறிக்கை', logout: 'வெளியேறு',
-    loggedIn: 'உள்நுழைவு', language: 'மொழி', theme: 'தோற்றம்',
-    collector: 'வசூல் ஏஜென்ட்', online: '● இணைப்பு உள்ளது', synced: 'புதுப்பிக்கப்பட்டது',
-    todayColl: 'இன்றைய வசூல்', custCollected: 'பேர் வசூல்',
+    loggedIn: 'உள்நுழைந்துள்ளவர்', language: 'மொழி', theme: 'தோற்றம்',
+    collector: 'வசூல் ஏஜென்ட்', online: '● இணைக்கப்பட்டுள்ளது', synced: 'புதுப்பிக்கப்பட்டது',
+    todayColl: 'இன்றைய வசூல்', custCollected: 'பேர் வசூல் செய்யப்பட்டது',
     active: 'மொத்த வாடிக்கையாளர்', paidUp: 'பணம் செலுத்தியவர்', pending: 'பாக்கி உள்ளவர்', dueAmt: 'மொத்த பாக்கி',
     todayRoute: 'இன்றைய தெருக்கள்', viewAll: 'அனைத்தும் →', pendingCust: 'பாக்கி வாடிக்கையாளர்',
-    btnCollect: '₹ வசூல்', btnSearch: 'தேடல்', btnPending: 'பாக்கி', btnReport: 'அறிக்கை',
+    btnCollect: '₹ வசூல் செய்', btnSearch: 'தேடு', btnPending: 'பாக்கி', btnReport: 'அறிக்கை',
     recentColl: 'சமீபத்திய வசூல்', noCollToday: 'இன்று வசூல் இல்லை'
   },
   en: {
@@ -860,10 +860,10 @@ const COL_I18N = {
     loggedIn: 'Logged in as', language: 'Language', theme: 'Theme',
     collector: 'Collector', online: '● Online', synced: 'Synced',
     todayColl: "TODAY'S COLLECTION", custCollected: 'customers collected',
-    active: 'Active', paidUp: 'PAID UP', pending: 'Pending', dueAmt: 'Due Amount',
-    todayRoute: "Today's Route", viewAll: 'View All →', pendingCust: 'Pending Customers',
+    active: 'Total customers', paidUp: 'Fully paid', pending: 'With dues', dueAmt: 'Total due',
+    todayRoute: "Today's streets", viewAll: 'View all →', pendingCust: 'Pending customers',
     btnCollect: '₹ Collect', btnSearch: 'Search', btnPending: 'Pending', btnReport: 'Report',
-    recentColl: 'Recent Collections', noCollToday: 'No collections today'
+    recentColl: 'Recent collections', noCollToday: 'No collections today'
   }
 };
 function applyCollectorLang() {
@@ -893,7 +893,7 @@ function applyCollectorLang() {
   // Update page titles map used by showPage
   window._colTitles = lang === 'en'
     ? { customers: 'Customers', billing: 'Collect', ledger: 'Ledger', colReport: 'Collection Report', pending: 'Pending Due', settings: 'More' }
-    : { customers: 'கஸ்டமர்', billing: 'வசூல்', ledger: 'லெட்ஜர்', colReport: 'கலெக்ஷன் ரிப்போர்ட்', pending: 'பெண்டிங்', settings: 'மேலும்' };
+    : { customers: 'வாடிக்கையாளர்', billing: 'வசூல்', ledger: 'கணக்கு', colReport: 'வசூல் அறிக்கை', pending: 'பாக்கி', settings: 'மேலும்' };
 }
 
 // patch showPage titles
@@ -907,7 +907,7 @@ showPage = function(id) {
     page.classList.remove('hidden');
     const back = document.getElementById('backBtn');
     if (back) back.classList.remove('hidden');
-    const titles = window._colTitles || { customers: 'கஸ்டமர்', billing: 'வசூல்', ledger: 'லெட்ஜர்', colReport: 'கலெக்ஷன் ரிப்போர்ட்', pending: 'பெண்டிங்', settings: 'மேலும்' };
+    const titles = window._colTitles || { customers: 'வாடிக்கையாளர்', billing: 'வசூல்', ledger: 'கணக்கு', colReport: 'வசூல் அறிக்கை', pending: 'பாக்கி', settings: 'மேலும்' };
     const ht = document.getElementById('headerTitle');
     if (ht) ht.textContent = titles[id] || id;
     const navMap = { customers: 'customers', billing: 'billing', pending: 'pending', settings: 'settings', ledger: 'home', colReport: 'home' };
