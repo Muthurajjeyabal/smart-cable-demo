@@ -1087,7 +1087,7 @@ async function viewLedger(id) {
   if (callBtn) callBtn.href = mobile ? ('tel:' + mobile) : '#';
   if (waBtn) {
     const due = Number(c.dueAmt || c.due || 0);
-    let msg = 'வணக்கம் ' + (c.name || '') + ', JSV Cable TV.';
+    let msg = 'வணக்கம் ' + (c.name || '') + ', Smart Cable Manager.';
     if (due > 0) msg += ' உங்கள் pending amount ₹' + due + '.';
     waBtn.href = mobile ? ('https://wa.me/91' + mobile.slice(-10) + '?text=' + encodeURIComponent(msg)) : '#';
   }
@@ -1539,11 +1539,11 @@ function copyPendingSmsText() {
   if (!text) {
     text =
       'வணக்கம்,\n\n' +
-      'JSV Cable TV - இந்த மாத கேபிள் பில் நிலுவையில் உள்ளது.\n' +
+      'Smart Cable Manager - இந்த மாத கேபிள் பில் நிலுவையில் உள்ளது.\n' +
       'தயவுசெய்து உடனே செலுத்தி இணைப்பு துண்டிப்பை தவிர்க்கவும்.\n\n' +
       'GPay: ' + gpay + ' (பணம் மட்டும்)\n' +
       'Office: ' + office + '\n\n' +
-      'நன்றி.\nJSV Cable TV · S. Alangulam';
+      'நன்றி.\nSmart Cable Manager · Madurai';
   }
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(text).then(function () {
@@ -1757,7 +1757,7 @@ function showReceipt(data, balanceAfter) {
   const co = companyInfo || {};
   const html = `
     <div style="text-align:center;font-weight:700;font-size:14px">JSV CABLE TV</div>
-    <div style="text-align:center;font-size:10px;margin-bottom:6px">${co.address || 'S. Alangulam'}</div>
+    <div style="text-align:center;font-size:10px;margin-bottom:6px">${co.address || 'Madurai'}</div>
     <div style="border-top:1px dashed #000;margin:6px 0"></div>
     <div>Bill No: <b>${data.billNo || '-'}</b></div>
     <div>Date: ${data.date || ''}</div>
@@ -2059,14 +2059,14 @@ let waDefaultTplId = 'due';
 let waActiveTplId = 'due';
 
 const DEFAULT_WA_TEMPLATES = {
-  "welcome": "வணக்கம் {name},\n\nJSV Cable TV-ல் இணைந்ததற்கு நன்றி!\n\nஉங்கள் இணைப்பு செயல்படுத்தப்பட்டது.\nPackage: ₹{package}\n\n{promo}\n\nபுகார் / உதவி:\nOffice: {office}\nGPay (பணம் மட்டும்): {gpay}\n\nநன்றி.\nJSV Cable TV · S. Alangulam",
-  "payment": "வணக்கம் {name},\n\nஉங்கள் பணம் ₹{amount} பெற்றுக்கொள்ளப்பட்டது.\nதேதி: {date}\n\n{promo}\n\nநன்றி.\nJSV Cable TV · S. Alangulam",
-  "due": "வணக்கம் {name},\n\nJSV Cable TV - {month} மாதத்திற்கு இன்னும் நீங்கள் பணம் கட்டவில்லை.\nநிலுவை: ₹{due}\n\nதயவுசெய்து உடனே செலுத்தி இணைப்பு துண்டிப்பை தவிர்க்கவும்.\n\n{promo}\n\nGPay: {gpay} (பணம் மட்டும் — புகார் வேண்டாம்)\nOffice / புகார்: {office}\n\nநன்றி.\nJSV Cable TV · S. Alangulam",
-  "diwali": "வணக்கம் {name},\n\n✨ இனிய தீபாவளி நல்வாழ்த்துக்கள்! ✨\n\nJSV Cable TV குடும்பம் உங்களுக்கும் உங்கள் குடும்பத்தினருக்கும் இனிய தீபாவளி வாழ்த்துக்களை தெரிவித்துக் கொள்கிறது.\n\nநன்றி.\nJSV Cable TV · S. Alangulam",
-  "christmas": "வணக்கம் {name},\n\n🎄 இனிய கிறிஸ்துமஸ் நல்வாழ்த்துக்கள்! 🎄\n\nJSV Cable TV உங்களுக்கும் குடும்பத்தினருக்கும் மகிழ்ச்சியான கிறிஸ்துமஸ் வாழ்த்துக்களைத் தெரிவிக்கிறது.\n\nநன்றி.\nJSV Cable TV · S. Alangulam",
-  "newyear": "வணக்கம் {name},\n\n🎉 இனிய புத்தாண்டு நல்வாழ்த்துக்கள்! 🎉\n\nபுதிய ஆண்டு உங்களுக்கு ஆரோக்கியமும் செழிப்பும் தரட்டும்.\n\nநன்றி.\nJSV Cable TV · S. Alangulam",
-  "ramadan": "வணக்கம் {name},\n\n🌙 ரம்ஜான் நல்வாழ்த்துக்கள்! 🌙\n\nஇந்த புனித மாதம் உங்களுக்கு அமைதியும் ஆசியும் தரட்டும்.\n\nநன்றி.\nJSV Cable TV · S. Alangulam",
-  "pongal": "வணக்கம் {name},\n\n🌾 இனிய பொங்கல் நல்வாழ்த்துக்கள்! 🌾\n\nJSV Cable TV குடும்பம் உங்களுக்கு இனிய தைப்பொங்கல் வாழ்த்துக்களைத் தெரிவிக்கிறது.\n\nநன்றி.\nJSV Cable TV · S. Alangulam",
+  "welcome": "வணக்கம் {name},\n\nSmart Cable Manager-ல் இணைந்ததற்கு நன்றி!\n\nஉங்கள் இணைப்பு செயல்படுத்தப்பட்டது.\nPackage: ₹{package}\n\n{promo}\n\nபுகார் / உதவி:\nOffice: {office}\nGPay (பணம் மட்டும்): {gpay}\n\nநன்றி.\nSmart Cable Manager · Madurai",
+  "payment": "வணக்கம் {name},\n\nஉங்கள் பணம் ₹{amount} பெற்றுக்கொள்ளப்பட்டது.\nதேதி: {date}\n\n{promo}\n\nநன்றி.\nSmart Cable Manager · Madurai",
+  "due": "வணக்கம் {name},\n\nSmart Cable Manager - {month} மாதத்திற்கு இன்னும் நீங்கள் பணம் கட்டவில்லை.\nநிலுவை: ₹{due}\n\nதயவுசெய்து உடனே செலுத்தி இணைப்பு துண்டிப்பை தவிர்க்கவும்.\n\n{promo}\n\nGPay: {gpay} (பணம் மட்டும் — புகார் வேண்டாம்)\nOffice / புகார்: {office}\n\nநன்றி.\nSmart Cable Manager · Madurai",
+  "diwali": "வணக்கம் {name},\n\n✨ இனிய தீபாவளி நல்வாழ்த்துக்கள்! ✨\n\nSmart Cable Manager குடும்பம் உங்களுக்கும் உங்கள் குடும்பத்தினருக்கும் இனிய தீபாவளி வாழ்த்துக்களை தெரிவித்துக் கொள்கிறது.\n\nநன்றி.\nSmart Cable Manager · Madurai",
+  "christmas": "வணக்கம் {name},\n\n🎄 இனிய கிறிஸ்துமஸ் நல்வாழ்த்துக்கள்! 🎄\n\nSmart Cable Manager உங்களுக்கும் குடும்பத்தினருக்கும் மகிழ்ச்சியான கிறிஸ்துமஸ் வாழ்த்துக்களைத் தெரிவிக்கிறது.\n\nநன்றி.\nSmart Cable Manager · Madurai",
+  "newyear": "வணக்கம் {name},\n\n🎉 இனிய புத்தாண்டு நல்வாழ்த்துக்கள்! 🎉\n\nபுதிய ஆண்டு உங்களுக்கு ஆரோக்கியமும் செழிப்பும் தரட்டும்.\n\nநன்றி.\nSmart Cable Manager · Madurai",
+  "ramadan": "வணக்கம் {name},\n\n🌙 ரம்ஜான் நல்வாழ்த்துக்கள்! 🌙\n\nஇந்த புனித மாதம் உங்களுக்கு அமைதியும் ஆசியும் தரட்டும்.\n\nநன்றி.\nSmart Cable Manager · Madurai",
+  "pongal": "வணக்கம் {name},\n\n🌾 இனிய பொங்கல் நல்வாழ்த்துக்கள்! 🌾\n\nSmart Cable Manager குடும்பம் உங்களுக்கு இனிய தைப்பொங்கல் வாழ்த்துக்களைத் தெரிவிக்கிறது.\n\nநன்றி.\nSmart Cable Manager · Madurai",
 };
 
 const DEFAULT_WA_NAMES = {"welcome": "Welcome / New Connection", "payment": "Payment Receipt", "due": "Due Reminder", "diwali": "தீபாவளி வாழ்த்து", "christmas": "கிறிஸ்துமஸ் வாழ்த்து", "newyear": "புத்தாண்டு வாழ்த்து", "ramadan": "ரம்ஜான் வாழ்த்து", "pongal": "பொங்கல் வாழ்த்து"};
@@ -2159,7 +2159,7 @@ async function addWaTemplate() {
   if (!name) return;
   const id = 'custom_' + Date.now().toString(36);
   ensureWaTemplates();
-  waTemplates[id] = { name, text: 'வணக்கம் {name},\n\n' + name + '\n\nநன்றி.\nJSV Cable TV' };
+  waTemplates[id] = { name, text: 'வணக்கம் {name},\n\n' + name + '\n\nநன்றி.\nSmart Cable Manager' };
   await persistWaTemplates();
   fillWaTplSelects();
   document.getElementById('waTplSelect').value = id;
@@ -2383,7 +2383,7 @@ function skipWa() {
 // ==================== TOAST ====================
 
 // ==================== STREET MASTER + AUTO CUST ID ====================
-// Street ID codes from CableSoft Street Report (JSV S.Alangulam)
+// Street ID codes from CableSoft Street Report (Smart Cable Madurai)
 const STREET_MASTER = [
   { place: 'AREA 1', street: 'அகத்தியர் தெரு', streetId: 'AGA' },
   { place: 'AREA 1', street: 'அன்பு--1', streetId: '1AN' },
@@ -2392,7 +2392,7 @@ const STREET_MASTER = [
   { place: 'AREA 1', street: 'அழகுமலையான்-1', streetId: '1AL' },
   { place: 'AREA 1', street: 'அழகுமலையான்-2', streetId: '2AL' },
   { place: 'AREA 1', street: 'ஆனந்தா', streetId: 'ATH' },
-  { place: 'AREA 1', street: 'ஆலங்குளம்', streetId: 'ALK' },
+  { place: 'AREA 1', street: 'மதுரை', streetId: 'ALK' },
   { place: 'AREA 1', street: 'இளங்கோ அடிகள்', streetId: 'ILA' },
   { place: 'AREA 1', street: 'கணபதி---2', streetId: '2GB' },
   { place: 'AREA 1', street: 'கணபதி---3', streetId: '3GB' },
@@ -3241,7 +3241,7 @@ async function deleteStreetMaster(id) {
 }
 
 async function seedStreetsFromCode() {
-  if (!confirm('CableSoft official street list import?\n\nOLD streets in Firestore DELETE ஆகும்.\nExact 90 streets மட்டும் சேரும்.')) return;
+  if (!confirm('Official street list import?\n\nOLD streets in Firestore DELETE ஆகும்.\nExact 90 streets மட்டும் சேரும்.')) return;
   try {
     await loadStreetMaster();
     // delete all existing
@@ -3441,8 +3441,8 @@ function refreshCustomerMsoDropdown() {
 }
 
 let companyInfo = {
-  name: 'JSV Cable TV',
-  address: 'S. Alangulam',
+  name: 'Smart Cable Manager',
+  address: 'Madurai',
   phone: '0452-2527545',
   phone2: '8678953333',
   gpay: '9442527545'
@@ -3501,7 +3501,7 @@ async function loadCompanyInfo() {
 
 async function saveCompanyInfo() {
   companyInfo = {
-    name: document.getElementById('coName').value.trim() || 'JSV Cable TV',
+    name: document.getElementById('coName').value.trim() || 'Smart Cable Manager',
     phone: document.getElementById('coPhone').value.trim(),
     phone2: (document.getElementById('coPhone2') || {}).value || '',
     gpay: (document.getElementById('coGpay') || {}).value || '',
@@ -3534,7 +3534,7 @@ async function fixGpayLocalAgents() {
       const d = doc.data();
       const cb = String(d.collectedBy || '').toUpperCase().trim();
       const remarks = String(d.remarks || '').toUpperCase();
-      // CableSoft import remarks: Import CableSoft · COLLECTED=GPAY
+      // CableSoft import remarks: Import · COLLECTED=GPAY
       const fromRemarks = /COLLECTED\s*=\s*GPAY/.test(remarks) || remarks.includes('GPAY');
       const fromRemarksLocal = /COLLECTED\s*=\s*LOCAL/.test(remarks) || (remarks.includes('LOCAL') && !remarks.includes('MUTHUMARI'));
       if (cb === 'GPAY' || cb.includes('GPAY') || (fromRemarks && cb !== 'ONLINE' && !cb.includes('UMA') && !cb.includes('MUTHUMARI'))) {
@@ -3664,7 +3664,7 @@ async function importCollectionsFromJson(fileName, label) {
           billDate: r.billDate || date,
           billNo: billNo,
           mode,
-          remarks: 'Import CableSoft · COLLECTED=' + (r.collected || ''),
+          remarks: 'Import · COLLECTED=' + (r.collected || ''),
           status: 'active',
           importCustId: cid,
           collectedBy,
@@ -4054,7 +4054,7 @@ function renderCollectionReport() {
     });
   });
   html += `<div class="flow3">${bodyHtml}</div>`;
-  html += `<div class="col-rep-foot">JSV Cable TV · ${area} · ${printed}/${list.length} customers · by JMR Apps</div>`;
+  html += `<div class="col-rep-foot">Smart Cable Manager · ${area} · ${printed}/${list.length} customers · by JMR Apps</div>`;
   box.innerHTML = html;
 }
 
@@ -4286,7 +4286,7 @@ function printDiv(id) {
     document.body.appendChild(root);
   }
   const title = document.getElementById('pageTitle');
-  const head = '<div style="text-align:center;margin-bottom:8px"><b>JSV Cable TV</b><br><span style="font-size:12px">' +
+  const head = '<div style="text-align:center;margin-bottom:8px"><b>Smart Cable Manager</b><br><span style="font-size:12px">' +
     (title ? title.textContent : 'Report') + ' · ' + new Date().toLocaleDateString('en-IN') + '</span></div>';
   root.innerHTML = head + src.innerHTML;
   root.style.display = 'block';
@@ -4300,7 +4300,7 @@ function printPendingReport() {
   const cnt = document.getElementById('pendingCount')?.textContent || '0';
   const tot = document.getElementById('pendingTotal')?.textContent || '₹0';
   const t = document.getElementById('pendingPrintTitle');
-  if (t) t.textContent = 'JSV Cable TV — Pending · ' + cnt + ' · ' + tot;
+  if (t) t.textContent = 'Smart Cable Manager — Pending · ' + cnt + ' · ' + tot;
   printDiv('pendingPrintArea');
 }
 
@@ -4443,8 +4443,8 @@ async function runFullBackup() {
     if (st) st.textContent = '1/3 JSON full backup...';
     const full = {
       meta: {
-        app: 'JSV Cable TV',
-        place: 'S. Alangulam',
+        app: 'Smart Cable Manager',
+        place: 'Madurai',
         exportedAt: new Date().toISOString(),
         month: ym
       },
