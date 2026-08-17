@@ -92,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const toEl = document.getElementById('colTo');
   if (fromEl) fromEl.value = today;
   if (toEl) toEl.value = today;
+  try { applyCollectorTheme(); applyCollectorLang(); } catch (e) {}
 
   auth.onAuthStateChanged(async user => {
     if (user) {
@@ -793,6 +794,123 @@ function showToast(msg, isError) {
   setTimeout(() => t.classList.add('hidden'), 2500);
 }
 
+// ---- Language & Theme (Collector) ----
+function getCollectorLang() {
+  try {
+    const v = (localStorage.getItem('jsv_lang') || 'ta').toLowerCase();
+    return (v === 'en' || v === 'english') ? 'en' : 'ta';
+  } catch (e) { return 'ta'; }
+}
+function getCollectorTheme() {
+  try { return localStorage.getItem('jsv_theme') === 'dark' ? 'dark' : 'light'; }
+  catch (e) { return 'light'; }
+}
+function setCollectorLang(v) {
+  v = (v === 'en') ? 'en' : 'ta';
+  try { localStorage.setItem('jsv_lang', v); } catch (e) {}
+  applyCollectorLang();
+  showToast(v === 'ta' ? 'தமிழ்' : 'English');
+}
+function setCollectorTheme(v) {
+  v = (v === 'dark') ? 'dark' : 'light';
+  try { localStorage.setItem('jsv_theme', v); } catch (e) {}
+  applyCollectorTheme();
+  showToast(v === 'dark' ? 'Dark' : 'Light');
+}
+function applyCollectorTheme() {
+  const dark = getCollectorTheme() === 'dark';
+  document.body.classList.toggle('col-dark', dark);
+  document.body.classList.toggle('bg-slate-100', !dark);
+  document.body.classList.toggle('bg-slate-900', dark);
+  const lb = document.getElementById('themeLightBtn');
+  const db = document.getElementById('themeDarkBtn');
+  if (lb && db) {
+    lb.className = dark
+      ? 'py-2.5 rounded-xl text-sm font-semibold border border-slate-200 text-slate-600'
+      : 'py-2.5 rounded-xl text-sm font-semibold border-2 border-blue-600 bg-blue-50 text-blue-800';
+    db.className = dark
+      ? 'py-2.5 rounded-xl text-sm font-semibold border-2 border-blue-600 bg-blue-50 text-blue-800'
+      : 'py-2.5 rounded-xl text-sm font-semibold border border-slate-200 text-slate-600';
+  }
+}
+const COL_I18N = {
+  ta: {
+    home: 'முகப்பு', customers: 'கஸ்டமர்', collect: 'வசூல்', due: 'பாக்கி', more: 'மேலும்',
+    dashboard: 'டாஷ்போர்டு', ledger: 'லெட்ஜர்', colReport: 'கலெக்ஷன் ரிப்போர்ட்', logout: 'லாக் அவுட்',
+    loggedIn: 'லாகின்', language: 'மொழி / Language', theme: 'தீம் / Theme'
+  },
+  en: {
+    home: 'Home', customers: 'Customers', collect: 'Collect', due: 'Due', more: 'More',
+    dashboard: 'Dashboard', ledger: 'Ledger', colReport: 'Collection Report', logout: 'Logout',
+    loggedIn: 'Logged in as', language: 'Language', theme: 'Theme'
+  }
+};
+function applyCollectorLang() {
+  const lang = getCollectorLang();
+  const d = COL_I18N[lang] || COL_I18N.ta;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    if (d[k]) el.textContent = d[k];
+  });
+  // Bottom nav labels
+  const navMap = { home: d.home, customers: d.customers, billing: d.collect, pending: d.due, settings: d.more };
+  document.querySelectorAll('.nav-item').forEach(btn => {
+    const key = btn.getAttribute('data-nav');
+    const lab = btn.querySelector('div.text-\\[9px\\], div[class*="text-[9px]"]') || btn.lastElementChild;
+    if (lab && navMap[key]) lab.textContent = navMap[key];
+  });
+  const ta = document.getElementById('langTaBtn');
+  const en = document.getElementById('langEnBtn');
+  if (ta && en) {
+    ta.className = lang === 'ta'
+      ? 'py-2.5 rounded-xl text-sm font-semibold border-2 border-emerald-600 bg-emerald-50 text-emerald-800'
+      : 'py-2.5 rounded-xl text-sm font-semibold border border-slate-200 text-slate-600';
+    en.className = lang === 'en'
+      ? 'py-2.5 rounded-xl text-sm font-semibold border-2 border-emerald-600 bg-emerald-50 text-emerald-800'
+      : 'py-2.5 rounded-xl text-sm font-semibold border border-slate-200 text-slate-600';
+  }
+  // Update page titles map used by showPage
+  window._colTitles = lang === 'en'
+    ? { customers: 'Customers', billing: 'Collect', ledger: 'Ledger', colReport: 'Collection Report', pending: 'Pending Due', settings: 'More' }
+    : { customers: 'கஸ்டமர்', billing: 'வசூல்', ledger: 'லெட்ஜர்', colReport: 'கலெக்ஷன் ரிப்போர்ட்', pending: 'பெண்டிங்', settings: 'மேலும்' };
+}
+
+// patch showPage titles
+const _origShowPage = showPage;
+showPage = function(id) {
+  try {
+    if (id === 'dashboard' || id === 'home') { goHome(); return; }
+    document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+    const page = document.getElementById('page-' + id);
+    if (!page) { showToast('Page error: ' + id, true); return; }
+    page.classList.remove('hidden');
+    const back = document.getElementById('backBtn');
+    if (back) back.classList.remove('hidden');
+    const titles = window._colTitles || { customers: 'கஸ்டமர்', billing: 'வசூல்', ledger: 'லெட்ஜர்', colReport: 'கலெக்ஷன் ரிப்போர்ட்', pending: 'பெண்டிங்', settings: 'மேலும்' };
+    const ht = document.getElementById('headerTitle');
+    if (ht) ht.textContent = titles[id] || id;
+    const navMap = { customers: 'customers', billing: 'billing', pending: 'pending', settings: 'settings', ledger: 'home', colReport: 'home' };
+    setBottomNav(navMap[id] || 'home');
+    if (id === 'customers') { buildPlaceStreet(); filterCustomers(); }
+    if (id === 'colReport') loadColReport();
+    if (id === 'pending') loadPending();
+    if (id === 'settings') { applyCollectorLang(); applyCollectorTheme(); }
+  } catch (e) {
+    console.error(e);
+    showToast('Error: ' + e.message, true);
+  }
+};
+goHome = function() {
+  document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+  document.getElementById('page-home').classList.remove('hidden');
+  const back = document.getElementById('backBtn');
+  if (back) back.classList.add('hidden');
+  const ht = document.getElementById('headerTitle');
+  if (ht) ht.textContent = (getCollectorLang() === 'en') ? 'Dashboard' : 'டாஷ்போர்டு';
+  setBottomNav('home');
+  loadDashboard();
+};
+
 window.showPage = showPage;
 window.goHome = goHome;
 window.logout = logout;
@@ -810,3 +928,5 @@ window.loadColReport = loadColReport;
 window.loadPending = loadPending;
 window.setPendingStreet = setPendingStreet;
 window.filterPendingList = filterPendingList;
+window.setCollectorLang = setCollectorLang;
+window.setCollectorTheme = setCollectorTheme;
