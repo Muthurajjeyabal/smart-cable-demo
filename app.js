@@ -3421,7 +3421,7 @@ async function deleteMsoMaster(id) {
 }
 
 async function seedMso() {
-  const list = ['SPCHE0077','SPCHE5981','TACTV25215','TACTV25257','SCV'];
+  const list = ['TACTV','GTPL','SCV','TCCL'];
   await loadMsoMaster();
   const have = new Set(msoMasterCache.map(m => m.name));
   for (const name of list) {
