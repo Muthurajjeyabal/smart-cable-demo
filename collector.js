@@ -809,6 +809,14 @@ function setCollectorLang(v) {
   v = (v === 'en') ? 'en' : 'ta';
   try { localStorage.setItem('jsv_lang', v); } catch (e) {}
   applyCollectorLang();
+  // refresh home labels if visible
+  try {
+    const home = document.getElementById('page-home');
+    if (home && !home.classList.contains('hidden')) {
+      const ht = document.getElementById('headerTitle');
+      if (ht) ht.textContent = v === 'en' ? 'Dashboard' : 'டாஷ்போர்டு';
+    }
+  } catch (e) {}
   showToast(v === 'ta' ? 'தமிழ்' : 'English');
 }
 function setCollectorTheme(v) {
@@ -837,12 +845,24 @@ const COL_I18N = {
   ta: {
     home: 'முகப்பு', customers: 'கஸ்டமர்', collect: 'வசூல்', due: 'பாக்கி', more: 'மேலும்',
     dashboard: 'டாஷ்போர்டு', ledger: 'லெட்ஜர்', colReport: 'கலெக்ஷன் ரிப்போர்ட்', logout: 'லாக் அவுட்',
-    loggedIn: 'லாகின்', language: 'மொழி / Language', theme: 'தீம் / Theme'
+    loggedIn: 'லாகின்', language: 'மொழி / Language', theme: 'தீம் / Theme',
+    collector: 'கலெக்டர்', online: '● ஆன்லைன்', synced: 'சின்க்',
+    todayColl: 'இன்றைய வசூல்', custCollected: 'கஸ்டமர் வசூல்',
+    active: 'ஆக்டிவ்', todayPaid: 'இன்று பேட்', pending: 'பெண்டிங்', dueAmt: 'பாக்கி',
+    todayRoute: 'இன்றைய ரூட்', viewAll: 'எல்லாம் →', pendingCust: 'பெண்டிங் கஸ்டமர்',
+    btnCollect: '₹ வசூல்', btnSearch: 'தேடல்', btnPending: 'பெண்டிங்', btnReport: 'ரிப்போர்ட்',
+    recentColl: 'சமீபத்திய வசூல்', noCollToday: 'இன்று வசூல் இல்லை'
   },
   en: {
     home: 'Home', customers: 'Customers', collect: 'Collect', due: 'Due', more: 'More',
     dashboard: 'Dashboard', ledger: 'Ledger', colReport: 'Collection Report', logout: 'Logout',
-    loggedIn: 'Logged in as', language: 'Language', theme: 'Theme'
+    loggedIn: 'Logged in as', language: 'Language', theme: 'Theme',
+    collector: 'Collector', online: '● Online', synced: 'Synced',
+    todayColl: "TODAY'S COLLECTION", custCollected: 'customers collected',
+    active: 'Active', todayPaid: 'Today Paid', pending: 'Pending', dueAmt: 'Due Amount',
+    todayRoute: "Today's Route", viewAll: 'View All →', pendingCust: 'Pending Customers',
+    btnCollect: '₹ Collect', btnSearch: 'Search', btnPending: 'Pending', btnReport: 'Report',
+    recentColl: 'Recent Collections', noCollToday: 'No collections today'
   }
 };
 function applyCollectorLang() {

@@ -78,39 +78,39 @@
       <div class="px-3 pt-3 pb-2">
         <div class="flex items-center justify-between mb-1">
           <div>
-            <div class="text-xs text-slate-500">கலெக்டர்</div>
+            <div class="text-xs text-slate-500" data-i18n="collector">கலெக்டர்</div>
             <div class="font-bold text-slate-900 text-sm" id="dashAgentName">—</div>
           </div>
           <div class="text-right">
-            <div class="text-[10px] font-medium text-emerald-600" id="dashOnline">● ஆன்லைன்</div>
-            <div class="text-[10px] text-slate-400" id="dashSync">சின்க்</div>
+            <div class="text-[10px] font-medium text-emerald-600" id="dashOnline" data-i18n="online">● ஆன்லைன்</div>
+            <div class="text-[10px] text-slate-400" id="dashSync" data-i18n="synced">சின்க்</div>
           </div>
         </div>
       </div>
 
       <!-- TODAY COLLECTION -->
       <div class="mx-3 mb-3 bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
-        <div class="text-[10px] font-semibold tracking-wider text-slate-400 uppercase">இன்றைய வசூல்</div>
+        <div class="text-[10px] font-semibold tracking-wider text-slate-400 uppercase" data-i18n="todayColl">இன்றைய வசூல்</div>
         <div class="text-3xl font-bold text-slate-900 mt-1" id="dToday">₹0</div>
-        <div class="text-xs text-slate-500 mt-0.5"><span id="dTodayCount">0</span> கஸ்டமர் வசூல்</div>
+        <div class="text-xs text-slate-500 mt-0.5"><span id="dTodayCount">0</span> <span data-i18n="custCollected">கஸ்டமர் வசூல்</span></div>
       </div>
 
       <!-- SUMMARY 2x2 -->
       <div class="mx-3 mb-3 grid grid-cols-2 gap-2">
         <div class="bg-white rounded-xl border border-slate-200 p-3">
-          <div class="text-[10px] text-slate-400 uppercase">ஆக்டிவ்</div>
+          <div class="text-[10px] text-slate-400 uppercase" data-i18n="active">ஆக்டிவ்</div>
           <div class="text-xl font-bold text-slate-800" id="dActive">0</div>
         </div>
         <div class="bg-white rounded-xl border border-slate-200 p-3">
-          <div class="text-[10px] text-slate-400 uppercase">இன்று பேட்</div>
+          <div class="text-[10px] text-slate-400 uppercase" data-i18n="todayPaid">இன்று பேட்</div>
           <div class="text-xl font-bold text-emerald-600" id="dPaidCust">0</div>
         </div>
         <div class="bg-white rounded-xl border border-slate-200 p-3">
-          <div class="text-[10px] text-slate-400 uppercase">பெண்டிங்</div>
+          <div class="text-[10px] text-slate-400 uppercase" data-i18n="pending">பெண்டிங்</div>
           <div class="text-xl font-bold text-amber-600" id="dUnpaidCust">0</div>
         </div>
         <div class="bg-white rounded-xl border border-slate-200 p-3">
-          <div class="text-[10px] text-slate-400 uppercase">பாக்கி</div>
+          <div class="text-[10px] text-slate-400 uppercase" data-i18n="dueAmt">பாக்கி</div>
           <div class="text-lg font-bold text-red-600" id="dUnpaidAmt">₹0</div>
         </div>
       </div>
@@ -118,8 +118,8 @@
       <!-- ROUTE BY STREET -->
       <div class="mx-3 mb-3 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
         <div class="px-4 py-2.5 border-b border-slate-100 flex justify-between items-center">
-          <div class="text-xs font-semibold text-slate-700">இன்றைய ரூட்</div>
-          <button type="button" onclick="showPage('pending')" class="text-[10px] text-blue-600 font-medium">எல்லாம் →</button>
+          <div class="text-xs font-semibold text-slate-700" data-i18n="todayRoute">இன்றைய ரூட்</div>
+          <button type="button" onclick="showPage('pending')" class="text-[10px] text-blue-600 font-medium" data-i18n="viewAll">எல்லாம் →</button>
         </div>
         <div id="dashRouteList" class="divide-y divide-slate-100 max-h-48 overflow-y-auto">
           <div class="p-3 text-xs text-slate-400 text-center">Loading...</div>
@@ -129,8 +129,8 @@
       <!-- PENDING PREVIEW -->
       <div class="mx-3 mb-3 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
         <div class="px-4 py-2.5 border-b border-slate-100 flex justify-between items-center">
-          <div class="text-xs font-semibold text-slate-700">பெண்டிங் கஸ்டமர்</div>
-          <button type="button" onclick="showPage('pending')" class="text-[10px] text-blue-600 font-medium">எல்லாம் →</button>
+          <div class="text-xs font-semibold text-slate-700" data-i18n="pendingCust">பெண்டிங் கஸ்டமர்</div>
+          <button type="button" onclick="showPage('pending')" class="text-[10px] text-blue-600 font-medium" data-i18n="viewAll">எல்லாம் →</button>
         </div>
         <div id="dashPendingPreview" class="divide-y divide-slate-100">
           <div class="p-3 text-xs text-slate-400 text-center">—</div>
@@ -139,17 +139,17 @@
 
       <!-- QUICK ACTIONS -->
       <div class="mx-3 mb-3 grid grid-cols-2 gap-2">
-        <button type="button" onclick="showPage('billing')" class="bg-blue-600 text-white rounded-xl py-3.5 text-sm font-semibold shadow-sm">₹ வசூல்</button>
-        <button type="button" onclick="showPage('customers')" class="bg-white border border-slate-200 rounded-xl py-3.5 text-sm font-semibold text-slate-700">தேடல்</button>
-        <button type="button" onclick="showPage('pending')" class="bg-white border border-slate-200 rounded-xl py-3.5 text-sm font-semibold text-slate-700">பெண்டிங்</button>
-        <button type="button" onclick="showPage('colReport')" class="bg-white border border-slate-200 rounded-xl py-3.5 text-sm font-semibold text-slate-700">ரிப்போர்ட்</button>
+        <button type="button" onclick="showPage('billing')" class="bg-blue-600 text-white rounded-xl py-3.5 text-sm font-semibold shadow-sm" data-i18n="btnCollect">₹ வசூல்</button>
+        <button type="button" onclick="showPage('customers')" class="bg-white border border-slate-200 rounded-xl py-3.5 text-sm font-semibold text-slate-700" data-i18n="btnSearch">தேடல்</button>
+        <button type="button" onclick="showPage('pending')" class="bg-white border border-slate-200 rounded-xl py-3.5 text-sm font-semibold text-slate-700" data-i18n="btnPending">பெண்டிங்</button>
+        <button type="button" onclick="showPage('colReport')" class="bg-white border border-slate-200 rounded-xl py-3.5 text-sm font-semibold text-slate-700" data-i18n="btnReport">ரிப்போர்ட்</button>
       </div>
 
       <!-- RECENT -->
       <div class="mx-3 mb-4 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-        <div class="px-4 py-2.5 border-b border-slate-100 text-xs font-semibold text-slate-700">சமீபத்திய வசூல்</div>
+        <div class="px-4 py-2.5 border-b border-slate-100 text-xs font-semibold text-slate-700" data-i18n="recentColl">சமீபத்திய வசூல்</div>
         <div id="dashRecent" class="divide-y divide-slate-100">
-          <div class="p-3 text-xs text-slate-400 text-center">இன்று வசூல் இல்லை</div>
+          <div class="p-3 text-xs text-slate-400 text-center" data-i18n="noCollToday">இன்று வசூல் இல்லை</div>
         </div>
       </div>
     </div>
