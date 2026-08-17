@@ -744,7 +744,7 @@ async function loadDashboard(force) {
     });
     set('dToday', '₹' + todayT.toLocaleString('en-IN'));
     set('dTodayCount', String(todayN));
-    set('dPaidCust', String(paidTodayIds.size || todayN));
+    set('dPaidCust', String(allCustomers.filter(c => Number(c.dueAmt||c.due||0) <= 0 && (c.status||'ACT')==='ACT').length));
     set('dPaidAmt', '₹' + todayT.toLocaleString('en-IN'));
     set('dMyTotal', '₹' + todayT.toLocaleString('en-IN'));
 
@@ -848,7 +848,7 @@ const COL_I18N = {
     loggedIn: 'லாகின்', language: 'மொழி / Language', theme: 'தீம் / Theme',
     collector: 'கலெக்டர்', online: '● ஆன்லைன்', synced: 'சின்க்',
     todayColl: 'இன்றைய வசூல்', custCollected: 'கஸ்டமர் வசூல்',
-    active: 'ஆக்டிவ்', todayPaid: 'இன்று பேட்', pending: 'பெண்டிங்', dueAmt: 'பாக்கி',
+    active: 'ஆக்டிவ்', paidUp: 'பேய்ட் அப்', pending: 'பெண்டிங்', dueAmt: 'பாக்கி',
     todayRoute: 'இன்றைய ரூட்', viewAll: 'எல்லாம் →', pendingCust: 'பெண்டிங் கஸ்டமர்',
     btnCollect: '₹ வசூல்', btnSearch: 'தேடல்', btnPending: 'பெண்டிங்', btnReport: 'ரிப்போர்ட்',
     recentColl: 'சமீபத்திய வசூல்', noCollToday: 'இன்று வசூல் இல்லை'
@@ -859,7 +859,7 @@ const COL_I18N = {
     loggedIn: 'Logged in as', language: 'Language', theme: 'Theme',
     collector: 'Collector', online: '● Online', synced: 'Synced',
     todayColl: "TODAY'S COLLECTION", custCollected: 'customers collected',
-    active: 'Active', todayPaid: 'Today Paid', pending: 'Pending', dueAmt: 'Due Amount',
+    active: 'Active', paidUp: 'Paid up', pending: 'Pending', dueAmt: 'Due Amount',
     todayRoute: "Today's Route", viewAll: 'View All →', pendingCust: 'Pending Customers',
     btnCollect: '₹ Collect', btnSearch: 'Search', btnPending: 'Pending', btnReport: 'Report',
     recentColl: 'Recent Collections', noCollToday: 'No collections today'
